@@ -17,8 +17,10 @@ interface FetchResponse {
 }
 
 function App() {
+  // for storing the api information
   const [data, setData] = useState<FetchResponse | null>(null)
 
+  // logic to fetch the api
   useEffect(() => {
     fetch('https://tip-transactions.vercel.app/api/transactions?page=1')
     .then(response => response.json())
@@ -50,24 +52,25 @@ function App() {
     <>
     {data ? 
       <>
-      <table>
-        <thead>
+      <h1 className='font-bold mb-8'>Expenses</h1>
+      <table className='border border-gray-300 max-w-7xl w-full text-left capitalize'>
+        <thead className='bg-gray-200'>
           <tr>
-            <th>ID</th>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Merchant</th>
-            <th>Category</th>
+            <th className='border border-gray-300 p-1'>ID</th>
+            <th className='border border-gray-300 p-1'>Date</th>
+            <th className='border border-gray-300 p-1'>Amount</th>
+            <th className='border border-gray-300 p-1'>Merchant</th>
+            <th className='border border-gray-300 p-1'>Category</th>
           </tr>
         </thead>
         <tbody>
           {data.transactions.map((transaction, key) => (
             <tr key={key}>
-              <td>{transaction.id}</td>
-              <td>{formatDateTime(transaction.date)}</td>
-              <td>£{transaction.amount}</td>
-              <td>{transaction.merchant}</td>
-              <td>{transaction.category}</td>
+              <td className='border border-gray-300 p-1'>{transaction.id}</td>
+              <td className='border border-gray-300 p-1'>{formatDateTime(transaction.date)}</td>
+              <td className='border border-gray-300 p-1'>£{transaction.amount}</td>
+              <td className='border border-gray-300 p-1'>{transaction.merchant}</td>
+              <td className='border border-gray-300 p-1'>{transaction.category}</td>
             </tr>
           ))}
         </tbody>
@@ -75,7 +78,7 @@ function App() {
 
       </>
     : 
-      <p>No data found</p>}
+      <p>No data found :(</p>}
     </>
   )
 }
